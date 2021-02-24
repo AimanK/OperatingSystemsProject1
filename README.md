@@ -1,5 +1,6 @@
 # OperatingSystemsProject1
 Implementing various CPU Scheduling algorithms on processes
+
 FIFO - First In First Out
 SJF - Shortest Job First
 SRT - Shortest Remaining Time
