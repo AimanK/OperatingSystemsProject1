@@ -33,8 +33,9 @@ class Main {
 
   //A value for k, which is the time interval during which processes may arrive
     System.out.println("Enter a Time Interval Value: ");
-    //int k = scan.nextInt();
-    int k = 50;
+    
+    int k = scan.nextInt();
+    
     
 
 
