@@ -1,26 +1,17 @@
-import java.util.Random;
 import java.util.Scanner;
-
 import java.util.PriorityQueue;
+
 
 class Main {
   public static void main(String[] args)
   {
     run();
   }
-
-
   public static void run()
   {
-    int process;
-    boolean active;
     //Arrival time: random int uniform dist.
     //Total CPU Time: random int gaussian dist.
     //Remaining CPU Time: initialized to Ti.
-    
-    
-    Process ob = new Process(15,1,0,20,20,6);
-    
 
     Scanner scan = new Scanner(System.in);
     
@@ -29,35 +20,28 @@ class Main {
 
     int n = scan.nextInt();
 
-
-
   //A value for k, which is the time interval during which processes may arrive
     System.out.println("Enter a Time Interval Value: ");
-    
     int k = scan.nextInt();
     
-    
-
-
   //The mean of total CPU time, d.
     System.out.println("Enter The Mean Total CPU Time: ");
 
-    int d = scan.nextInt();
+    double d = scan.nextDouble();
 
- 
  //The standard deviation of total CPU time, v
     System.out.println("Enter The Standard Deviation CPU Time: ");
 
-    int v = scan.nextInt();
+    double v = scan.nextDouble();
 
-    
   //The quantum q, for the last scheduling algorithm.
     System.out.println("Enter a Time Quantum: ");
 
     int q = scan.nextInt();
-
-
-
+    
+    
+    
+    
 
     System.out.println("Number of Processes Entered: " + n);
 
@@ -69,59 +53,41 @@ class Main {
 
     System.out.println("Time Quantum is: " + q);
     
-     Random rand = new Random();
+    System.out.println("\n~~~~~~~~~~TABLE OF PROCESSES:~~~~~~~~~~\n");
+    process obj = new process(n, 1);
+    double[][] mainArray = new double[n][7];
+    obj.setProcess(mainArray);
+    obj.setActive(mainArray);
+    obj.setTimeInterval(k);
+    obj.setArrivalTime(mainArray);
+    obj.setCPUTime(d, v, mainArray);
+    obj.setPriorityLevel(mainArray);
+    obj.outPut(mainArray);
     
-    
-    //Total CPU Time, integer chosen randomly from gaussian distribution with an average d and a standard deviation v, where d and v are simulation parameters
-    for (int i = 0; i < n; i++) 
+   int currentTime = 0;
+   
+   
+    while (mainArray[n][4] != 0) 
     {
-      double cpuTime = rand.nextGaussian() *d+v;
-
-      System.out.println( i + ")\t" + "CPU Time generated: " + cpuTime);
-
-      double remainingCPUTime = cpuTime;
-    }
-
-
-    //Using a random number generator, derive m arrival times, Ai, for all processes, distributed uniformly within the interval [0:k].
-
-    for (int i = 0; i < n;i++) 
+        
+      //check if each process is active, while no process is active, increment t
+        if (mainArray[n][1] == 0) 
+        {
+            currentTime++;
+        }
+        
+       //Choose active processes pi according to scheduling algorithm
+        mainArray[n][obj.indRemainingCPUTime] = mainArray[n][obj.indRemainingCPUTime--];
+        
+        
+        if (mainArray[n][4] == 0) 
     {
-      
-      int arrivalTime = rand.nextInt(k + 1);
-
-       System.out.println("Random arrival time generated is: " + arrivalTime);
-
+        //set active flag of pi to 0
+    mainArray[n][1] = 0;
+    mainArray[n][5] = currentTime - mainArray[n][2];
     }
-    
-    //Priority level for the last algorithm
-    for (int i = 0; i < n; i++) 
-  {
-
-    int priorityLevel = rand.nextInt(10) + 1;
-
-    System.out.println("Priority level is: " + priorityLevel);
-  }
-    
-    
-
-    
-  }
-
-  public static int turnAroundTime(int currentTime, int arrivalTime)
-  {
-      int turnAround = currentTime - arrivalTime;
-      return turnAround;
-  }
-
-  public static int totalCPUTime(int n)
-  {
-      return 0;
-  }
-
-  public static void FIFO (PriorityQueue <Integer> a)
-  {
-      a.remove();
-      System.out.println(a.peek());
+        
+    }
   }
 }
+
